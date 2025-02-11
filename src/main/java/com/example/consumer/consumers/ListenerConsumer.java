@@ -1,5 +1,6 @@
 package com.example.consumer.consumers;
 
+import com.example.consumer.config.ConsumerCustomListener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Component;
@@ -8,26 +9,12 @@ import org.springframework.stereotype.Component;
 public class ListenerConsumer {
 
 
-    @KafkaListener(
-            groupId = "group-1",
-            topicPartitions = @TopicPartition(
-                    topic = "str-topic",
-                    partitions = {"0"} // Escutando apenas a partição 0
-            ),
-            containerFactory = "configurer"
-    )
+    @ConsumerCustomListener(groupId ="group-1")
     public void listenerPartition0(String message) {
         System.out.println("Listener Partition 0 ::: " + message);
     }
 
-    @KafkaListener(
-            groupId = "group-1",
-            topicPartitions = @TopicPartition(
-                    topic = "str-topic",
-                    partitions = {"1"} // Escutando apenas a partição 1
-            ),
-            containerFactory = "configurer"
-    )
+    @ConsumerCustomListener(groupId = "group-1")
     public void listenerPartition1(String message) {
         System.out.println("Listener Partition 1 ::: " + message);
     }
